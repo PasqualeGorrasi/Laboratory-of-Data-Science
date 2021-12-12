@@ -23,7 +23,7 @@ with open('C:\\Users\\pasqu\\Desktop\\Università\\Laboratory DS\\progetto\\date
             year = int(row[0][:4])
             month = int(row[0][4:6])
             day = int(row[0][6:8])
-            quarter = month//4 + 1
+            quarter = (month-1)//3 + 1
 
             row.append(year)
             row.append(month)
