@@ -1,0 +1,4 @@
+--For each tournament, show the loser with the highest ratio between his loser rank
+-- points and the average winner rank points of that tournament.
+
+with member media as aggregate(([Tournament].[Tourney Id].CURRENTMEMBER, [Loser].[Player Id].[All]), [Measures].[Winner Rank Points])/aggregate(([Tournament].[Tourney Id].CURRENTMEMBER, [Loser].[Player Id].[All]), [Measures].[Conteggio di Match])member loserrank as([Tournament].[Tourney Id].CURRENTMEMBER, [Measures].[Loser Rank Points])member ratio ascase when media = 0 then 0 else loserrank / media end select {media, loserrank, ratio}  on columns,GENERATE(([Tournament].[Tourney Id].[Tourney Id], [Tournament].[Year].[Year]), TOPCOUNT(([Tournament].[Tourney Id].CURRENTMEMBER, [Tournament].[Year].CURRENTMEMBER,nonempty(FILTER([Loser].[Player Id].[Player Id], [Measures].[Loser Rank Points] > 0))), 1, ratio)) on rowsfrom [Group 13 DB]

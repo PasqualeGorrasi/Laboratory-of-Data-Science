@@ -1,0 +1,3 @@
+--For each tournament, show the loser with the lowest total loser rank points.
+
+SELECT [Measures].[Loser Rank Points] ON COLUMNS,GENERATE(([Tournament].[Tourney Id].[Tourney Id], [Tournament].[Year].[Year]),BOTTOMCOUNT(([Tournament].[Tourney Id].CURRENTMEMBER,[Tournament].[Year].currentmember,nonempty(FILTER([Loser].[Player Id].[Player Id], [Measures].[Loser Rank Points] > 0))), 1,[Measures].[Loser Rank Points])) ON ROWSFROM [Group 13 DB]
